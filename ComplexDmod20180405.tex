@@ -1,0 +1,1067 @@
+% !Mode:: "TeX:UTF-8"
+\input{ArticleL}
+%
+% PDF File Information
+%
+\hypersetup{
+	pdftitle={D-modules Notes - Xu Gao},%标题
+	pdfauthor={Xu Gao},            %作者
+	%             pdfproducer={XeLaTeX},        %制作工具
+	bookmarksopen=true,         %书签自动打开
+	colorlinks=true,                       %是否采用彩色超链接
+	citecolor=red,                       %文献引用的颜色
+	filecolor=black,                       %文件链接颜色
+	linkcolor=black,                       %内部链接颜色
+	urlcolor=darkgray                         %网页与电邮链接颜色
+}
+
+%
+% TITLE
+%
+\title{Note on\\ \texttt{\Huge $\mathscr{D}$-modules}\\ (on complex manifolds)}
+\author{Xu Gao}
+\date{
+	Last update: \today
+}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+This is my reading and thought notes on $\mathscr{D}$-modules 
+in the context of complex geometry. 
+It contains standard materials of definitions and conclusions in this field 
+at beginner level. 
+In addition, it also contains funny, cumbersome and maybe highly non-necessary 
+materials (in small fonts) basically around my confusions and brainstorms.
+\end{abstract}
+\tableofcontents
+\clearpage
+
+\section*{Conventions}
+%
+%all rings are unital; 
+
+Throughout this note, unless specify otherwise, 
+all objects are over the complex field $\CC$. 
+For example, by a vector field, we mean a vector field over $\CC$; 
+by a sheaf, we mean a sheaf of vector spaces.
+
+To invalid potential confusions on infinity, 
+we require charts to be connected
+
+There are many sheaves canonically defined on every complex manifolds $M$, 
+and usually have notations of the form $\Fff_M$. 
+When the manifold $M$ is unambiguous, we simplify the notation to $\Fff$.
+
+We also use the following conventions from analysis: 
+whenever we have $\lambda=(\lambda_1,\cdots,\lambda_m)\in\NN^m$, then
+\[
+|\lambda|=\sum_{i=1}^m\lambda_i,
+\qquad\qquad
+\lambda!=\prod_{i=1}^m(\lambda_i!);
+\]
+if we have another $\mu=(\mu_1,\cdots,\mu_m)\in\NN^m$, then
+\[
+\binom{\lambda}{\mu}=
+\begin{cases}
+\cfrac{\lambda!}{\mu!(\lambda-\mu)!} & \text{if $\lambda\ge\mu$,}\\
+0 & \text{if not,}
+\end{cases}
+\]
+where $\lambda\ge\mu$ means $\lambda_i\ge\mu_i$ for all $i=1,\cdots,m$. 
+We use $\epsilon_i$ to denote the multi-index whose $i$-th term is $1$ and 
+all the other terms are $0$. 
+Let $X=(X_1,\cdots,X_m)$ be a $m$-tuple of \emph{pairwise commutative} 
+elements in a ring, then by $X^\lambda$, we mean the unambiguous product
+\[
+X_1^{\lambda_1}\cdots X_m^{\lambda_m}.
+\]
+Let $(X^p)_{p\in I}$ (resp. $(X_p)_{p\in I}$) be a family of elements in a ring
+\emph{parametrized} by a subset $I$ of $\NN$ 
+(for example, $I=[1,m]:=\{1,\cdots,m\}$), 
+then by $X^\lambda$ (resp. $X_\lambda$), we mean the ordered product
+\[
+X^{\lambda_1}\cdots X^{\lambda_m}\qquad
+(\text{resp. }X_{\lambda_1}\cdots X_{\lambda_m}).
+\]
+Note that these two conventions would not cause ambiguity 
+as long as we distinguish the cases 
+that $X^p$ is a power of the element $X$ and 
+that $X^p$ is a member in the family $X$.
+
+
+
+
+\clearpage
+\section{Basic constructions}
+Can skip \S 2,3,4 when first read.
+
+\subsection{The sheaf of holomorphic differential operators}
+
+Let $M$ be a complex manifold, 
+$\mathscr{O}_M$ its its structural sheaf, 
+that is, the sheaf of holomorphic functions on $M$. 
+Suppose $M$ is of complex dimension $m$, then locally, 
+one can always find a local coordinate system $(z^i)_{1\le i\le m}$. 
+Let's keep such convention.
+
+Let $\CC_M$ be the constant sheaf with values $\CC$ on $M$. 
+It is where everything lives on in this notes, 
+so the tensor product and the internal Hom-sheaf over it is denoted by 
+$-\otimes-$ and $\SHom(-,-)$. 
+For $\Fff$ a sheaf on $M$, we use $\SEnd(\Fff)$ to denote $\SHom(\Fff,\Fff)$.
+
+Let $\Theta_M$ be the sheaf of holomorphic vector fields on $M$ and
+note that it is a locally free $\mathscr{O}_M$-modules with local basis 
+$(\partial_{z^i})_{1\le i\le m}$ 
+(or simply denoted by $(\partial_i)_{1\le i\le m}$) 
+under the local coordinate system $(z^i)_{1\le i\le m}$. 
+Note that it is a sheaf of Lie algebras and that
+each $\partial_i$ acting on a function $f$ gives $\pfrac{f}{z^i}$. 
+
+Note that the pair $(\mathscr{O},\Theta)$ satisfies the following properties: 
+\begin{enumerate}[(a)]
+\item $\Theta$ is an $\mathscr{O}$-modules,
+\item $\mathscr{O}$ is a $\Theta$-module and
+\item those two actions give rise to an $\mathscr{O}$-linear 
+monomorphism of sheaves of ($\CC$-linear) Lie algebras from $\Theta$ to 
+$\SDer(\mathscr{O})$, the sheaf of ($\CC$-linear) derivations of $\mathscr{O}$.
+\end{enumerate}
+This means they form a sheaf of faithful \emph{Lie–Rinehart algebras}. 
+
+\begin{Rem}
+\small
+Indeed, a \emph{Lie–Rinehart algebra} is a pair $(A,\gg)$ of 
+a commutative ring $A$ and a Lie algebra $\gg$ 
+subject to the following axioms:
+\begin{enumerate}[(LR1)]
+\item $\gg$ is an $A$-modules;
+\item $A$ is a $\gg$-module;
+\item $\gg$ acts as derivations of $A$;
+\item $A$ acts on $\gg$ by the following \emph{Leibniz rule}:
+\[
+a[v,w] = [av,w] + w(a)v,
+\qquad
+\forall a\in A, v,w\in\gg.
+\]
+\end{enumerate}
+If $\gg$ acts faithfully on $A$, that is, 
+the Lie algebra homomorphism $\gg\to\Der(A)$, 
+where $\Der(A)$ denotes the set of derivations of $A$ which 
+is both a Lie algebra and an $A$-module, is injective, 
+then (LR4) is equivalent to say that 
+the homomorphism $\gg\to\Der(A)$ is $A$-linear.
+\end{Rem}
+
+Since $\Theta$ acts faithfully on $\mathscr{O}$, we have the following embedding:
+\[
+\Theta\into\SDer(\mathscr{O})\into\SEnd(\mathscr{O}).
+\]
+On the other hand, since $\mathscr{O}$ a sheaf of commutative rings, 
+it can be canonically embedded into $\SEnd(\mathscr{O})$ as its center. 
+Note that, in each case, we have a monomorphism of $\mathscr{O}$-modules.
+Then, we meet the following definition:
+
+\begin{defn}
+The $\mathscr{O}$-subalgebra of $\SEnd(\mathscr{O})$ generated by 
+the images of above two embeddings is called the 
+\termin{sheaf of differential operators on $M$}, denoted by $\mathscr{D}_M$.
+\end{defn}
+Note that this makes $\mathscr{D}$ into the universal algebra of 
+$(\mathscr{O},\Theta)$. 
+
+\begin{Rem}
+\small
+Indeed, first note that if $R$ is a ring and 
+$B$ is a commutative subring of $R$, 
+then $(B,R)$, where $R$ is equipped with the standard Lie bracket and 
+acts on $B$ by adjoint actions, is a Lie–Rinehart algebra.
+
+A \emph{homomorphism of Lie–Rinehart algebras} $(A,\gg)\to(B,\hh)$ is 
+a pair $(\varphi,\psi)$ of a ring homomorphism $\varphi\colon A\to B$ and 
+a Lie algebra homomorphism $\psi\colon\gg\to\hh$ such that 
+\begin{enumerate}[(a)]
+\item $\varphi$ makes $\psi$ into a homomorphism of $A$-modules;
+\item $\psi$ makes $\varphi$ into a homomorphism of $\gg$-modules.
+\end{enumerate}
+
+Then, a \emph{homomorphism} from a Lie–Rinehart algebra $(A,\gg)$ to 
+a ring $R$ is a pair $(\varphi,\psi)$ of 
+a ring homomorphism $\varphi\colon A\to R$ and 
+a Lie algebra homomorphism $\psi\colon\gg\to R$ such that 
+$(\varphi,\psi)$ is a homomorphism of Lie–Rinehart algebras 
+from $(A,\gg)$ to $(\Image(\varphi),R)$. 
+
+Finally, the \emph{universal algebra} of a Lie–Rinehart algebra $(A,\gg)$ is 
+the ring $\mathcal{U}(A,\gg)$ (equipped with a homomorphism 
+$(\iota,\rho)$ from $(A,\gg)$ to it) 
+satisfying the following universal property: 
+\begin{quote}
+Whenever there is a homomorphism $(\varphi,\psi)$ from $(A,\gg)$ to a ring $R$, 
+there exists a unique ring homomorphism $\phi$ from $\mathcal{U}(A,\gg)$ to $R$ 
+such that $\varphi=\phi\circ\iota$ and $\psi=\phi\circ\rho$.
+\end{quote}
+Note that in particular, 
+there exists a unique representation 
+$\vartheta\colon\mathcal{U}(A,\gg)\to\End(A)$ such that 
+$\varphi\circ\iota$ is the canonical representation of $A$ and 
+$\varphi\circ\rho$ is the action of $\gg$ on $A$. 
+In this way, we can always identify $A$ and its image in $\mathcal{U}(A,\gg)$. 
+\end{Rem}
+
+Note that, using a local coordinate system $(z^i)_{1\le i\le m}$, 
+any differential operator can be locally uniquely written as
+\[
+\sum_{\lambda\in\NN^m}f_\lambda\partial^\lambda,
+\]
+where $f_\lambda\in\mathscr{O}$ and all but finitely many of them are zero. 
+This can be shown using the following lemma:
+\begin{lem}
+Let $U$ be a chart of $M$ with coordinate system $(z^i)_{1\le i\le m}$ and 
+$(\partial_i)_{1\le i\le m}$ the corresponding basis of $\Gamma(U,\Theta)$. 
+Then for any $f\in\Gamma(U,\mathscr{O})$ and $i,j\in[1,m]$, we have
+\[
+[\partial_i,f]=\partial_i(f),\quad
+[\partial_i,\partial_j]=\delta_{ij}.
+\]
+Moreover, for any $\lambda\in\NN^m$, we have
+\begin{align*}
+\partial^\lambda f&=
+\sum_{\mu\le\lambda}\binom{\lambda}{\mu}
+\partial^{\lambda-\mu}(f)\partial^\mu,\\
+f\partial^\lambda&=
+\sum_{\mu\le\lambda}\binom{\lambda}{\mu}(-1)^{|\lambda-\mu|}
+\partial^\mu\partial^{\lambda-\mu}(f).
+\end{align*}
+\end{lem}
+
+Then, for such an open set $U$, we get an exhaustive filtration on $\Gamma(U,\mathscr{D})$:
+\[
+F_0\Gamma(U,\mathscr{D})\subset F_1\Gamma(U,\mathscr{D})
+\subset F_2\Gamma(U,\mathscr{D})\subset\cdots,
+\]
+where for each $p\in\NN$, 
+\[
+F_p\Gamma(U,\mathscr{D})=
+\left\{\sum_{|\lambda|\le p}f_\lambda\partial^\lambda;
+f_\lambda\in\Gamma(U,\mathscr{O})\right\}.
+\]
+A differential operator 
+$P\in F_p\Gamma(U,\mathscr{D})\setminus F_{p-1}\Gamma(U,\mathscr{D})$ 
+is said to be of \termin{order} $p$, denoted by $\ord(P)$. 
+We always keep the convention that $\ord(0)=-\infty$.
+Note that if we write $P$ as 
+$\sum_{\lambda\in\NN^m}f_\lambda\partial^\lambda$, 
+then $\ord(P)$ is precisely the integer $\max\{|\lambda|;f_\lambda\neq0\}$. 
+
+These filtrations can be glued into an exhaustive filtration on $\mathscr{D}$:
+\[
+F_0\mathscr{D}\subset F_1\mathscr{D}\subset F_2\mathscr{D}\subset\cdots.
+\]
+To see this, we need the following lemma:
+\begin{lem}
+The order of a differential operator on a chart $U$ does not depend on 
+the choice of coordinate system. Consequently, 
+the order of a differential operator on $M$ is locally constant.
+\end{lem}
+\begin{proof}
+The first assertion follows by apply the differential operator on polynomials. 
+The second assertion follows from the \emph{Identity Principle}: 
+if two holomorphic functions on a connected open set coincide 
+on a nonempty open subset, then they are the same. 
+Indeed, this implies that the order of the restriction 
+of a differential operator on a connected chart 
+to another smaller chart remains the same. 
+\end{proof}
+This lemma justify the notation $\ord(P)$. 
+Moreover, since $\ord(P)$ is a locally constant, the presheaves
+\[
+F_p\mathscr{D}\colon 
+U\longmapsto\{P\in\Gamma(U,\mathscr{D});\ord(P)\le p\}
+\]
+are in fact sheaves and furthermore $\mathscr{O}$-submodules of $\mathscr{D}$. 
+Moreover, by same reason, the filtration of stalks $(F_p\mathscr{D})_x$ 
+at each point $x\in M$ is exhaustive, 
+hence so is the filtration of sheaves $F_p\mathscr{D}$.
+
+\begin{Rem}
+\small
+Let $(A,\gg)$ be a Lie–Rinehart algebra. 
+Since $\mathcal{U}(A,\gg)$ is a ring extension of $A$ generated by $\rho(\gg)$, 
+we get a natural filtration on $\mathcal{U}(A,\gg)$:
+\[
+\mathcal{U}_0(A,\gg)\subset\mathcal{U}_1(A,\gg)\subset\mathcal{U}_2(A,\gg)
+\subset\cdots,
+\]
+where $\mathcal{U}_p(A,\gg)$ is the $A$-submodules of $\mathcal{U}(A,\gg)$ 
+generated by $\bigoplus_{q\le p}\rho(\gg)^q$ 
+(with the convention that $\rho(\gg)^0=A$). 
+The filtration $F_p\mathscr{D}$ can be understood in this way.
+\end{Rem}
+
+\begin{Eg}(Differential operator of infinite order)
+Let $M$ be the disjoint union of countable copies of $\CC$.
+On the $p$-th copy, consider the differential operator $\partial^p$, 
+the $p$-th power of the standard vector field on $\CC$. 
+Since those copies are disjoint with each other, 
+one can glue these differential operators together 
+to get a differential operator on $M$. 
+However, this global differential operator wouldn't be of any finite order.
+\end{Eg}
+
+By computation using local coordinate system, we have:
+\begin{lem}\label{lem:filtration_of_D}
+If we identify $\mathscr{O}$, $\Theta$ with their images in $\mathscr{D}$, 
+then we have
+\begin{enumerate}[(i)]
+\item $F_0\mathscr{D}=\mathscr{O}$,
+\item $F_1\mathscr{D}=\mathscr{O}\oplus\Theta$,
+\item $F_p\mathscr{D}\circ F_q\mathscr{D}\subset F_{p+q}\mathscr{D}$,
+\item $[F_p\mathscr{D},F_q\mathscr{D}]\subset F_{p+q-1}\mathscr{D}$.
+\end{enumerate}
+\end{lem}
+Note that this implies that $(\mathscr{D},F_\bullet)$ is a sheaf of 
+\emph{almost commutative rings}, hence its \emph{associated graded algebra}
+\[
+\gr_\bullet(\mathscr{D})=\gr^F_\bullet(\mathscr{D}):=
+\bigoplus_{p=0}^{\infty}F_p\mathscr{D}/F_{p-1}\mathscr{D}
+\]
+is commutative (here and from now on, we keep the convention that 
+if $F_\bullet$ is an increasing filtration start from $0$, 
+then $F_p=0$ for negative $p$).
+
+\begin{Rem}
+A \emph{filtered ring} $(R,F_\bullet)$ is a ring $R$ equipped with 
+an exhaustive increasing filtration of subspaces $F_\bullet$ on it 
+satisfying the following axioms:
+\begin{enumerate}[(a)]
+\item $1\in F_0R$;
+\item $F_pR\cdot F_qR\subset F_{p+q}R$.
+\end{enumerate}
+Any filtered ring $(R,F_\bullet)$ admits an \emph{associated graded algebra}
+\[
+\gr_\bullet(R)=\gr^F_\bullet(R):=
+\bigoplus_{p=0}^{\infty}F_pR/F_{p-1}R,
+\]
+whose multiplication is induced from that of $R$ in an obvious way. 
+If a filtered ring $(R,F_\bullet)$ furthermore satisfies
+\begin{enumerate}[(c)]
+\item $[F_pR,F_qR]\subset F_{p+q-1}R$,
+\end{enumerate}
+then its associated graded algebra is commutative. 
+Such a filtered ring is called a \emph{almost commutative ring}.
+\end{Rem}
+
+Note that we have $\gr_0(\mathscr{D})=F_0\mathscr{D}=\mathscr{O}$, 
+hence $\gr_\bullet(\mathscr{D})$ is a commutative graded $\mathscr{O}$-algebra. 
+Since $\mathscr{D}$ is generated by $F_1\mathscr{D}$, the $\mathscr{O}$-algebra 
+$\gr_\bullet(\mathscr{D})$ is generated by $\gr_1(\mathscr{D})$, 
+which is isomorphic to $\Theta$ by \Cref{lem:filtration_of_D}. 
+Then the commutative multiplication on $\gr_\bullet(\mathscr{D})$ induces 
+the following surjective homomorphisms of $\mathscr{O}$-modules
+\[
+\SS^p(\Theta)\To\gr_p(\mathscr{D}),
+\] 
+which give rise to a surjective homomorphism of graded $\mathscr{O}$-algebras: 
+\begin{equation}\label{eq:sym(theta)_to_D}
+\SS^\bullet(\Theta)\To\gr_\bullet(\mathscr{D}).
+\end{equation}
+Using a local coordinate system and notice that 
+$\{\partial^\lambda;\lambda\in\NN^m\}$ 
+form an $\mathscr{O}$-basis, it is straightforward to see that 
+the above homomorphism is an isomorphism.
+
+Note that $\mathscr{O}$ is noetherian by \emph{R\"{u}ckert Basis Theorem}, 
+which can be shown by 
+\href{https://en.wikipedia.org/wiki/Weierstrass_preparation_theorem}
+{\emph{Weierstrass Preparation Theorem}}. From this and that $\Theta$ 
+is a locally free $\mathscr{O}$-module of finite rank, we conclude that 
+$\SS(\Theta)$, as well as $\gr(\mathscr{D})$, is noetherian.
+Then, we have
+\begin{theorem}
+$\mathscr{D}$ is left and right noetherian.
+\end{theorem}
+To see this, we need the following lemma:
+\begin{lem}
+Let $(R,F_\bullet)$ be an almost commutative ring. Suppose furthermore:
+\begin{enumerate}[(i)]
+\item $\gr^F_1(R)$ generates $\gr^F_\bullet(R)$ as a $F_0R$-algebra,
+\item $\gr^F_\bullet(R)$ is noetherian.
+\end{enumerate}
+Then $R$ is left and right noetherian.
+\end{lem}
+We leave the proof later. 
+
+\subsection{The sheaf of differential operators}
+In this subsection, $(X,\mathscr{O}_X)$ is a (commutative) locally ringed space. 
+For any pair of $\mathscr{O}_X$-modules $\Fff$ and $\Ggg$, 
+we define a sequence of $\mathscr{O}_X$-submodules of 
+$\SHom(\Fff,\Ggg)$ (not $\SHom_{\mathscr{O}_X}(\Fff,\Ggg)$)
+recursively as follows:
+\begin{itemize}
+\item $\SDiff_X^p(\Fff,\Ggg)=0$ for negative $p$;
+\item for $p\ge0$, $\SDiff_X^p(\Fff,\Ggg)$ maps each open set $U$ to
+\[
+\left\{P\colon\local{\Fff}{U}\to\local{\Ggg}{U};
+[\local{P}{V},a]\in\Gamma(V,\SDiff_X^{p-1}(\Fff,\Ggg)),
+\forall a\in\Gamma(V,\mathscr{O})\right\},
+\]
+where the morphism $[\local{P}{V},a]$ maps each section $t$ of 
+$\local{\Fff}{V}$ to the section $P(a.t)-a.P(t)$ of $\local{\Ggg}{V}$.
+\end{itemize}
+Then the \termin{sheaf of differential operators from $\Fff$ to $\Ggg$} 
+is the sheaf union 
+\[
+\SDiff_X(\Fff,\Ggg)=\bigcup\SDiff_X^p(\Fff,\Ggg).
+\]
+A section of $\SDiff_X^p(\Fff,\Ggg)$ is called a 
+\emph{differential operator of order $\le p$}. 
+The order of a differential operator can also be characterized by 
+the following construction: 
+for $P$ an endomorphism of $\mathscr{O}$ and $p$ a natural number, 
+let $\sigma_p(P)\colon\mathscr{O}_X^{\otimes p}\to\SHom(\Fff,\Ggg)$ 
+be the homomorphism 
+\[
+a_1\otimes a_2\otimes\cdots\otimes a_n 
+\mapsto [\cdots[[P,a_1],a_2],\cdots,a_n],
+\]
+where $a_1,a_2,\cdots,a_n$ are sections of $\mathscr{O}_X$ 
+(note that when $p=0$, $\sigma_0=\id$). 
+%is precisely the identical homomorphism). 
+For a differential operator $P$, 
+$\sigma_p(P)$ is called its \termin{symbol of order $p$}. 
+In particular, 
+the \termin{principal symbol} of $P$ is its symbol of order $\ord(P)$, 
+denoted by $\sigma(P)$. 
+Then, we have
+\begin{lem}
+\begin{enumerate}[(i)]
+\item Every $\sigma_p(P)$ is symmetric, hence from $\SS^p(\mathscr{O}_X)$.
+\item $\Ker(\sigma_p)=\SDiff_X^{p-1}(\Fff,\Ggg)$, 
+hence if $Q\in\SDiff_X^q(\Fff,\Ggg)$, 
+then $\sigma_p(Q)$ lands in $\SDiff_X^{q-p}(\Fff,\Ggg)$.
+\end{enumerate}
+\end{lem}
+\begin{proof}
+(i) follows from the Jacobi identity and the that $\mathscr{O}_X$ is commutative. 
+(ii) follows from expansion of the recursive definition of $\SDiff_X$.
+\end{proof}
+From this lemma and the observation that 
+$\SDiff_X^0(\Fff,\Ggg)=\SHom_{\mathscr{O}_X}(\Fff,\Ggg)$, 
+each $\sigma_p$ induces a monomorphism of $\mathscr{O}_X$-modules 
+\[
+\gr_p(\SDiff_X(\Fff,\Ggg))\To
+\SHom(\SS^p(\mathscr{O}_X),\SHom_{\mathscr{O}_X}(\Fff,\Ggg)).
+\]
+From now on, we identify each $\gr_p(\SDiff_X(\Fff,\Ggg))$ with its image 
+under above monomorphism and 
+view $\sigma_p$ as the projection 
+from $\SDiff_X^p(\Fff,\Ggg)$ to $\gr_p(\SDiff_X(\Fff,\Ggg))$.
+
+See \cite{EGA4}*{Chapter 16} and \cite{SGA3}*{Expos\'{e} VII} for more details. 
+From now on, we only forces on the special one  
+$\SDiff_X=\SDiff_X(\mathscr{O}_X,\mathscr{O}_X)$.
+
+\begin{prop}
+If we identify $\mathscr{O}_X$ with its image in $\SEnd(\mathscr{O}_X)$, 
+then we have
+\begin{enumerate}[(i)]
+\item $\SDiff_X^0=\mathscr{O}_X$,
+\item $\SDiff_X^1=\mathscr{O}_X\oplus\SDer(\mathscr{O}_X)$,
+\item $\SDiff_X^p\circ\SDiff_X^q\subset\SDiff_X^{p+q}$,
+\item $[\SDiff_X^p,\SDiff_X^q]\subset \SDiff_X^{p+q-1}$.
+\end{enumerate}
+\end{prop}
+\begin{proof}
+Note that we only need to verify these at stalks. 
+So, the assertions follow from those in commutative algebra.
+\end{proof}
+
+Then, we have an almost commutative $\mathscr{O}_X$-algebra $\SDiff_X^\bullet$. 
+Hence, there is a canonical homomorphism of graded $\mathscr{O}_X$-algebras 
+\begin{equation}\label{eq:sym(Der)_to_Diff}
+\SS^\bullet(\SDer(\mathscr{O}_X))\To\gr_\bullet(\SDiff_X).
+\end{equation}
+However, this is not surjective, \emph{a fortiori} an isomorphism in general. 
+
+
+\begin{Rem}
+Let $A$ be a commutative ring and $M,N$ two $A$-modules, 
+then the filtered $A$-module $\Diff_A^\bullet(M,N)$ 
+can be defined recursively as follows: 
+\begin{itemize}
+\item $\Diff_A^p(M,N)=0$ for negative $p$;
+\item for $p\ge0$, $\Diff_A^p(M,N)$ is the following submodule of $\Hom(M,N)$
+\[
+\{P\in\Hom(M,N);
+[P,a]\in\Diff_A^{p-1}(M,N),
+\forall a\in A\},
+\]
+where the homomorphism $[P,a]$ maps each $t\in M$ to $P(a.t)-a.P(t)$. 
+\end{itemize}
+In particular, $\Diff_A^\bullet(A,A)$ is simply denoted by $\Diff_A^\bullet$.  
+It is not difficult to show that $\Diff_A^\bullet$ is an almost commutative ring 
+and $\Diff_A^1=A\oplus\Der(A)$. 
+However, 
+%although $(A,\Der(A))$ is a Lie–Rinehart algebra, 
+%its universal algebra $\mathcal{U}(A,\Der(A))$, 
+%as well as its image in $\End(A)$, 
+it is not true in general that 
+the subalgebra of $\End(A)$ generated by $A\oplus\Der(A)$ 
+is the entire $\Diff_A$. 
+\end{Rem}
+
+Now, we go back to the case on a complex manifold $M$. We have
+\begin{lem}\label{lem:Theta=Der}
+The image of $\Theta_M$ in $\SEnd(\mathscr{O}_M)$ is $\SDer(\mathscr{O}_M)$.
+\end{lem}
+\begin{proof}
+Since the problem is local, 
+we may assume we are working on an open set of $\CC^m$ 
+with coordinate system $(z^i)_{1\le i\le m}$. 
+First, it is clear that every holomorphic vector field defines a derivation. 
+Conversely, let $D$ be a derivation, then it comes from the vector field 
+$\theta=\sum_{i=1}^mD(z^i)\partial_i$. 
+Indeed, the \emph{Hadamard lemma} shows that, 
+if $f$ is a holomorphic function nearby a point $x$, 
+then there exist holomorphic functions $(f_i)_{1\le i\le m}$ nearby $x$ 
+such that
+\[
+f=f(x)+\sum_{i=1}^m(z^i-z^i(x))f_i
+\]
+and that $f_i(x)=\pfrac{f}{z^i}(x)$ for all $i$. 
+Then we have
+\[
+D(f)=D(\sum_{i=1}^m(z^i-z^i(x))f_i)
+=\sum_{i=1}^m(D(z^i)f_i+(z^i-z^i(x))D(f_i)).
+\]
+Hence $D(f)(x)=\theta(f)(x)$. Since $x$ is arbitrary, we conclude that $D$ comes from the holomorphic vector field $\theta$.
+\end{proof}
+More general, we have
+\begin{theorem}\label{thm:D=Diff}
+For each $p$, $F_p\mathscr{D}_M=\SDiff_M^p$. 
+\end{theorem}
+\begin{proof}
+It reduces to show $(F_p\mathscr{D}_M)_x=(\SDiff_M^p)_x$ at every point $x\in M$. 
+We keep the same assumption as previous, then we may assume $x=0\in\CC^m$. 
+Let $A$ be the ring of germs of holomorphic functions at $0$. 
+Then $(\mathscr{D}_M)_0$ equals 
+the subalgebra of $\End(A)$ generated by $A$ and $\Der(A)$, 
+which is also the universal algebra $\mathcal{U}(A,\Der(A))$ 
+by the discussion in previous subsection. 
+In addition, we have $(\SDiff_M^p)_0=\Diff_A$ from the definition.
+Then it remains to show that 
+$\mathcal{U}_p=\mathcal{U}_p(A,\Der(A))$ equals $\Diff_A^p$. 
+
+It is clear that $\mathcal{U}_p\subset\Diff_A^p$. To prove the converse, 
+we do induction on $p$. The $p=1$ case is \Cref{lem:Theta=Der}. 
+To do the inductive step, we need a lemma:
+
+\begin{lem}
+For positive $p$, if there are $P_1,\cdots,P_m\in\mathcal{U}_{p-1}$ satisfying 
+\[
+[P_i,z^j]=[P_j,z^i],\qquad\forall i,j\in[1,m],
+\]
+then there exists a $Q\in\mathcal{U}_p$ such that
+\[
+[Q,z^i]=P_i,\qquad i\in[1,m].
+\]
+\end{lem}
+\begin{proof}
+First, it is not difficult to find a $Q_m\in\mathcal{U}_p$ 
+such that $[Q_m,z^m]=P_m$. 
+Indeed, if we write $P_m$ as
+\[
+P_m=\sum_{|\lambda|\le p-1}f_\lambda\partial^\lambda,
+\]
+then
+\[
+Q_m=\sum_{|\lambda|\le p-1}
+\frac{f_\lambda}{\lambda_m}\partial^{\lambda+\epsilon_m}
+\]
+works: 
+\[
+[Q_m,z^m]=\sum_{|\lambda|\le p-1}
+\frac{f_\lambda}{\lambda_m}[\partial^{\lambda+\epsilon_m},z^m]
+=\sum_{|\lambda|\le p-1}\frac{f_\lambda}{\lambda_m}\lambda_m\partial^\lambda
+=P_m.
+\]
+
+Suppose we already find $Q_{k+1}\in\mathcal{U}_p$ ($k\in[1,m-1]$) such that 
+\[
+[Q_{k+1},z^i]=P_i,\qquad i\in[k+1,m].
+\]
+Then we want to find a $Q_k\in\mathcal{U}_p$ such that 
+\[
+[Q_k,z^i]=P_i,\qquad i\in[k,m].
+\]
+To do this, we can first let $P_{k+\frac12}$ be $[Q_{k+1},z^k]-P_k$. 
+Then, for each $i\in[k+1,m]$, we have 
+\begin{align*}
+[P_{k+\frac12},z^i]&=[[Q_{k+1},z^k]-P_k,z^i]\\
+&=[[Q_{k+1},z^i],z^k]-[P_k,z^i]\\
+&=[P_i,z^k]-[P_k,z^i]=0.
+\end{align*}
+On the other hand, if we write $P_{k+\frac12}$ as
+\[
+P_{k+\frac12}=\sum_{|\lambda|\le p-1}g_\lambda\partial^\lambda,
+\]
+then
+\[
+[P_{k+\frac12},z^i]=\sum_{|\lambda|\le p-1}g_\lambda[\partial^\lambda,z^i]
+=\sum_{|\lambda|\le p-1}g_\lambda\lambda_i\partial^{\lambda-\epsilon_i}.
+\]
+Hence $g_\lambda=0$ if $\lambda_i\neq0$ for $i\in[k+1,m]$. 
+Then $P_{k+\frac12}$ is a operator built up only from 
+$\partial_1,\cdots,\partial_k$. Hence if we put
+\[
+Q_{k+\frac12}=\sum_{|\lambda|\le p-1}
+\frac{g_\lambda}{\lambda_k}\partial^{\lambda+\epsilon_k}
+\]
+Then, we have
+\[
+[Q_{k+\frac12},z^k]=P_{k+\frac12}
+\]
+and, for each $i\in[k+1,m]$, 
+\[
+[Q_k,z_i]=0.
+\]
+Then, $Q_k=Q_{k+1}-Q_{k+\frac12}$ works. 
+
+Therefore, by induction, we can find the required $Q\in\mathcal{U}_p$.
+\end{proof}
+
+Now, we go back to the proof of \Cref{thm:D=Diff}. 
+Suppose we already have $\mathcal{U}_{p-1}=\Diff_A^{p-1}$. 
+Let $P$ be a differential operator of order $\le p$. 
+Then for each $i\in[1,m]$, $P_i=[P,z^i]$ is of order $p-1$, 
+hence $P_i\in\mathcal{U}_{p-1}$. 
+Note that for any $i,j\in[1,m]$, we have
+\[
+[P_i,z^j]=[[P,z^i],z^j]=[[P,z^j],z^i]=[P_j,z^i].
+\]
+Hence the lemma applies and there exists a $Q\in\mathcal{U}_p$ such that 
+\[
+[Q,z^i]=P_i=[P,z^i],\qquad i\in[1,m].
+\]
+Now, we need another lemma:
+\begin{lem}
+If $D$ is a differential operator such that 
+\[
+[D,z^i]=0,\qquad i\in[1,m].
+\]
+Then $D$ is of order $0$.
+\end{lem}
+\begin{proof}
+Let $f$ be an arbitrary holomorphic function at $0$ 
+and $x$ a point nearby $0$ such that $f$ is also holomorphic at $x$. 
+Then, by \emph{Hadamard lemma}, 
+there exist holomorphic functions $(f_i)_{1\le i\le m}$ nearby $x$ 
+such that
+\[
+f=f(x)+\sum_{i=1}^m(z^i-z^i(x))f_i.
+\]
+Then we have (notice that $D$ commutes with any number)
+\begin{align*}
+[D,f]&=[D,\sum_{i=1}^m(z^i-z^i(x))f_i]\\
+&=\sum_{i=1}^m([D,z^i]f_i+(z^i-z^i(x))[D,f_i])\\
+&=\sum_{i=1}^m(z^i-z^i(x))[D,f_i].
+\end{align*}
+Apply both sides to arbitrary $g\in A$ and evaluate at $x$, 
+we see that the function $D(fg)-fD(g)$ vanishes at $x$. 
+By arbitrarily choosing $x$, we see that $D(fg)=fD(g)$. 
+Hence
+\[
+[D,f]=0.
+\]
+Since $f$ is arbitrary, this means $D$ is of order $0$. 
+\end{proof}
+
+Now $Q\in\mathcal{U}_p$, $P-Q\in\Diff_A^0\subset\mathcal{U}_p$, 
+hence $P=Q+(P-Q)\in\mathcal{U}_p$.
+Therefore $\mathcal{U}_p=\Diff_A^p$ as desired.
+\end{proof}
+
+\begin{Rem}
+\small
+One may expect another proof of \Cref{thm:D=Diff} 
+using \emph{sheaf of principle parts}: 
+if the sheaf $\Omega_{M/\CC}^1$ of \emph{Kahler differentials} 
+on $\mathscr{O}_M$ is locally free of finite rank, 
+then $M$ is \emph{differentially smooth} (\emph{Jacobi Criterion}, 
+see \cite{EGA4}*{Thm.16.12.2}) and
+consequently, $\SDiff_M$ is generated by $\SDiff_M^1$ by \cite[Thm.16.11.2]{EGA4}.
+However, although $\SDer(\mathscr{O}_M)$ is locally free of rank $m$, 
+it is not true that so is $\Omega_{M/\CC}^1$. 
+Be careful that $\Omega_{M/\CC}^1$ is \emph{NOT} equal to $\Omega_{M}^1$, 
+the sheaf of holomorphic differentials: 
+the later is just a quotient of the first.
+However, one may still use a similar strategy since we still have
+\[
+\Omega_{M}^1=(\Omega_{M/\CC}^1)^{\ast\ast},
+\]
+where $()^\ast$ means the dual $\mathscr{O}_M$-module operation, and 
+that the canonical morphism $\Omega_{M/\CC}^1\to(\Omega_{M/\CC}^1)^{\ast\ast}$ 
+is surjective. 
+See \href{https://ncatlab.org/nlab/show/Kahler+differential#SmoothOrPlain}
+{this $n$lab term} and 
+\href{https://mathoverflow.net/questions/6074/kahler-differentials-and-ordinary-differentials}{this MO post} 
+for more details about the relation between $\Omega_{M/\CC}^1$ and $\Omega_{M}^1$.
+\end{Rem}
+
+\begin{cor}
+The homomorphism \Cref{eq:sym(Der)_to_Diff} is an isomorphism.
+\end{cor}
+\begin{proof}
+Follows from \Cref{lem:Theta=Der}, \Cref{thm:D=Diff} 
+and the fact that \Cref{eq:sym(theta)_to_D} is an isomorphism.
+\end{proof}
+
+\subsection{The sheaf of principal parts}
+In this subsection, we give another proof for \Cref{thm:D=Diff} using the machinery from \cite{TCGA}.
+
+Let $M$ be a complex manifold. 
+Then we have the following canonical morphisms:
+\[
+M\markar{\Delta}M\times M\markar{\pr_i}M
+\]
+where $M$ is the diagonal morphism and $\pr_i$ is the projection to $i$-th factor.
+Let $\mathscr{J}_\Delta$ be the kernel of the canonical homomorphism 
+$\Delta^\sharp\colon\Delta^{-1}(\mathscr{O}_{M\times M})\to\mathscr{O}_M$. 
+Let $M_\Delta^{(p)}$ be the locally ringed space 
+whose underlying topological space is $M$ and whose structure sheaf is 
+$\Delta^{-1}(\mathscr{O}_{M\times M})/\mathscr{J}_\Delta^{p+1}$. 
+Then we have an inductive system of locally ringed spaces
+\[
+M=M_\Delta^{(0)}\To M_\Delta^{(1)}\To M_\Delta^{(2)}\To\cdots
+\]
+over $M\times M$ such that $\Delta\colon M\to M\times M$ factors through 
+each structure morphism $\Delta^{(p)}\colon M_\Delta^{(p)}\to M\times M$. 
+Therefore, $M_\Delta^{(p)}$ is called the 
+\termin{$p$-th infinitesimal neighborhood} of $M$ with respect to $\Delta$. 
+
+Note that we have morphisms
+\[
+M_\Delta^{(p)}\markar{\Delta^{(p)}}M\times M\markar{\pr_i}M
+\]
+where $(\Delta^{(p)})^\sharp$ is the quotient homomorphism. 
+Let $\pr_i^\ast$ be the homomorphism 
+$(\pr_i\circ\Delta^{(p)})^\sharp\colon
+\mathscr{O}_M\to\mathscr{O}_{M_\Delta^{(p)}}$. 
+Then each $\pr_i^\ast$ gives 
+$\mathscr{O}_{M_\Delta^{(p)}}$ an 
+\emph{augmented $\mathscr{O}_M$-algebra} structure. 
+Then, the \termin{sheaf of principal parts} of $M$ is sheaf 
+$\mathscr{O}_{M_\Delta^{(p)}}$ equipped with 
+the $\mathscr{O}_M$-algebra structure from $\pr_1^\ast$, 
+denoted by $\mathscr{P}_M^{(p)}$. 
+From now on, we will identify $\mathscr{O}_M$ with its image in $\mathscr{P}_M^{(p)}$.
+On the other hand, 
+$d^{(p)}:=\pr_2^\ast\colon\mathscr{O}_M\to\mathscr{P}_M^{(p)}$ 
+is called the \termin{universal differential operator of order $p$}. 
+For any section $f$ of $\mathscr{O}_M$, 
+the section $df=d^{(1)}(f)-f$ of $\mathscr{P}_M^{(1)}$ is called the \termin{(holomorphic) differential} of $f$.
+
+\begin{lem}
+As $\mathscr{O}_M$-algebras, 
+$\mathscr{P}_M^{(p)}\cong
+\mathscr{O}_M\oplus\mathscr{J}_\Delta/\mathscr{J}_\Delta^{p+1}$.
+\end{lem}
+\begin{proof}
+This follows from the fact that the augmented $\mathscr{O}_M$-algebra structure 
+on $\mathscr{P}_M^{(p)}$ makes the following exact sequence split:
+\[
+0\To\mathscr{J}_\Delta/\mathscr{J}_\Delta^{p+1}\To
+\mathscr{P}_M^{(p)}\To\mathscr{O}_M\To0
+\]
+\end{proof}
+
+In particular, we can see that for any section $f$ of $\mathscr{O}_M$, 
+the section $df$ belongs to $\mathscr{J}_\Delta/\mathscr{J}_\Delta^2$. 
+In this sense, we call $\mathscr{J}_\Delta/\mathscr{J}_\Delta^2$ the 
+\termin{sheaf of (holomorphic) differentials}. % and denote it by $\Omega_M^1$. 
+Later, we sill show that it is isomorphic to the sheaf of holomorphic $1$-forms. 
+
+Note that the ideal $\mathscr{J}_\Delta$ gives 
+$\Delta^{-1}(\mathscr{O}_{M\times M})$ a $\mathscr{J}_\Delta$-adic filtration, 
+hence we have the associated graded algebra
+\begin{equation}\label{eq:SGr(P)}
+\SGr_\bullet(\mathscr{P}_M):=
+\bigoplus_{p\ge0}\mathscr{J}_\Delta^p/\mathscr{J}_\Delta^{p+1}.
+\end{equation}
+Since $\SGr_0(\mathscr{P}_M)=
+\Delta^{-1}(\mathscr{O}_{M\times M})/\mathscr{J}_\Delta\cong\mathscr{O}_M$, 
+we see that $\SGr_\bullet(\mathscr{P}_M)$ is a graded $\mathscr{O}_M$-algebra. 
+Moreover, this $\mathscr{O}_M$-algebra structure coincides with those 
+from $\pr_1^\ast$ and $\pr_2^\ast$. 
+Then the $\mathscr{O}_M$-linear multiplication of $\SGr_\bullet(\mathscr{P}_M)$ 
+induces a surjective homomorphism of graded $\mathscr{O}_M$-algebras
+\[
+\SS_{\mathscr{O}_M}^\bullet(\SGr_1(\mathscr{P}_M))\To\SGr_\bullet(\mathscr{P}_M).
+\]
+
+We will show
+\begin{theorem}
+Each $\mathscr{P}_M^{(p)}$ is a locally free $\mathscr{O}_M$-module 
+of finite rank.
+\end{theorem}
+\begin{proof}
+It suffices to show that $\mathscr{P}_{M,x}^{(p)}$ is a free 
+$\mathscr{O}_{M,x}$-module of finite rank for any point $x\in M$.
+By choosing a local coordinate $(z,w)$ of $M\times M$ 
+we reduce to the case where $x$ is the origin $(0,0)\in\CC^m\times\CC^m$.
+
+Let $f(z,w)$ be a germ of holomorphic functions at $(0,0)\in\CC^m\times\CC^m$. 
+Then since we have invertible holomorphic linear transformation 
+$(z,w)\mapsto(z,w-z)$, it can be uniquely written as 
+\[
+f(z,w)=\sum_{\lambda\in\NN^m}f_\lambda(z)(w-z)^\lambda,
+\]
+where $f_\lambda(z)$ are germs of holomorphic functions at $0\in\CC^m$. 
+In this way, we obtain an injective homomorphism of $\mathscr{O}_{M,x}$-algebras
+\[
+\mathscr{O}_{M\times M,(x,x)}\To\mathscr{O}_{M,x}[[w-z]],
+\]
+where $\mathscr{O}_{M,x}[[w-z]]$ denotes the formal power series ring over $\mathscr{O}_{M,x}$. 
+We identify $\mathscr{O}_{M\times M,(x,x)}$ with its image. 
+Note that $\Delta^\sharp_x$ maps $f(z,w)$ to $f(z,z)$. Then we have
+\[
+\mathscr{J}_{\Delta,x}=\left\{f(z,w);f_0(z)=0\right\}\subset
+\left\{\sum_{|\lambda|\ge1}f_\lambda(z)(w-z)^\lambda\right\}.
+\]
+Consequently, we have
+\[
+\mathscr{J}_{\Delta,x}^p=
+\left\{f(z,w);f_\lambda(z)=0,\forall|\lambda|<p\right\}\subset
+\left\{\sum_{|\lambda|\ge p}f_\lambda(z)(w-z)^\lambda\right\}.
+\]
+Therefore 
+\[
+\mathscr{P}_{M,x}^{(p)}\cong
+\left\{f(z,w);f_\lambda(z)=0,\forall|\lambda|> p\right\}=
+\left\{\sum_{|\lambda|\le p}f_\lambda(z)(w-z)^\lambda\right\},
+\]
+which is a free $\mathscr{O}_{M,x}$-module 
+with the finite basis
+\[
+\{(w-z)^\lambda;|\lambda|\le p\}.
+\]
+\end{proof}
+
+From the above proof, it is clear that
+\begin{cor}
+The homomorphism \Cref{eq:SGr(P)} is an isomorphism.
+\end{cor}
+
+\begin{cor}
+$\SGr_1(\mathscr{P}_M)$ is isomorphic to 
+the sheaf of holomorphic $1$-forms.
+% and $d\colon\mathscr{O}_M\to\mathscr{J}_\Delta/\mathscr{J}_\Delta^2$ is an isomorphism.
+\end{cor}
+\begin{proof}
+From previous reasoning, we see that being restricted to a coordinate chart, 
+$\SGr_1(\mathscr{P}_M)$ has a basis $\{w^i-z^i;1\le i\le m\}$. 
+Then, the map $w^i-z^i\mapsto dz^i$ gives an isomorphism to $\Omega_{M}^1$ 
+which is compatible with the transition maps. Hence the conclusion.
+\end{proof}
+
+Note that, after identify $\SGr_1(\mathscr{P}_M)$ with 
+$\Omega_{M}^1$, the morphism $d\colon\mathscr{O}_M\to\Omega_{M}^1$ has the following 
+explicit expression in local coordinate:
+\[
+f\longmapsto \sum_{i=1}^m\pfrac{f}{z^i}dz^i.
+\]
+One can see it coincides with the usual differential.
+
+\begin{lem}
+For each $p$, we have
+\[
+\SHom_{\mathscr{O}_M}(\mathscr{P}_M^{(p)},\mathscr{O}_M)\cong\SDiff_M^p.
+\]
+\end{lem}
+\begin{proof}
+We may assume we are working on a coordinate chart. 
+Then $d^{(p)}\colon\mathscr{O}_M\to\mathscr{P}_M^{(p)}$ maps each $f$ to
+\[
+d^{(p)}(f)=
+\sum_{|\lambda|\le p}\frac{\partial^\lambda(f)(z)}{\lambda!}(w-z)^\lambda.
+\]
+Then it is straightforward to verify that $d^{(p)}$ is a differential operator of order $p$ from $\mathscr{O}_M$ to $\mathscr{P}_M^{(p)}$. 
+Consequently, for each homomorphism of $\mathscr{O}_M$-modules 
+$P\colon\mathscr{P}_M^{(p)}\to\mathscr{O}_M$, 
+the composition $P\circ d^{(p)}$ is a differential operator of order $p$ on
+$\mathscr{O}_M$. This gives the desired homomorphism.
+ 
+It remains to show it is bijective.
+To show this, we construct its inverse as follows:
+for any $P$ a differential operator of order $p$ on $\mathscr{O}_M$, 
+let $\widetilde{P}\colon\mathscr{P}_M^{(p)}\to\mathscr{O}_M$ be defined by 
+\[
+\widetilde{P}(w^\lambda)=P(z^\lambda)
+\]
+(note that $\{w^\lambda;|\lambda|\le p\}$ is also a basis of $\mathscr{P}_M^{(p)}$). Then, we have
+\begin{align*}
+\widetilde{P}(d^{(p)}(f))&=\widetilde{P}
+(\sum_{|\lambda|\le p}\frac{\partial^\lambda(f)(z)}{\lambda!}(w-z)^\lambda)\\
+&=\sum_{|\lambda|\le p}\frac{\partial^\lambda(f)(z)}{\lambda!}
+\sum_{\mu\le\lambda}\binom{\lambda}{\mu}(-z)^{\lambda-\mu}\widetilde{P}(w^\mu)\\
+&=\sum_{|\lambda|\le p}\frac{\partial^\lambda(f)(z)}{\lambda!}
+\sum_{\mu\le\lambda}\binom{\lambda}{\mu}(-z)^{\lambda-\mu}P(z^\mu)\\
+&=\sum_{|\lambda|\le p}\frac{\partial^\lambda(f)(z)}{\lambda!}[P,z^\lambda](1)\\
+&=?
+\end{align*}
+hence the conclusion.
+\end{proof}
+
+
+\begin{Rem}
+Note that the product $M\times M$ is took in the category of complex manifolds. 
+If one takes products in the category of locally ringed spaces, 
+then one will have 
+\[
+\Delta^{-1}(\mathscr{O}_{M\times M})=
+\mathscr{O}_M\otimes_{\mathbb{C}}\mathscr{O}_M
+\]
+and the result sheaves, denoted by $\mathscr{P}_{M/\CC}^{(p)}$ 
+instead of $\mathscr{P}_{M}^{(p)}$, is not locally free. 
+However, one can see that 
+\[
+\SHom_{\mathscr{O}_M}(\mathscr{P}_{M/\CC}^{(p)},\mathscr{O}_M)
+\cong\SDiff_M^p
+\]
+by the recursive definition. 
+Therefore $\mathscr{P}_{M/\CC}^{(p)}$ and $\mathscr{P}_{M}^{(p)}$ have the same 
+dual $\mathscr{O}_M$-modules, hence the later is the double dual of the first.
+\end{Rem}
+
+\subsection{The symplectic structure of the cotangent bundle}
+Note that since $[F_p\mathscr{D},F_q\mathscr{D}]\subset F_{p+q-1}\mathscr{D}$, 
+for any differential operators $P$ and $Q$, we have
+\[
+\ord([P,Q])\le\ord(P)+\ord(Q)-1.
+\]
+Therefore $(P,Q)\mapsto\sigma([P,Q])$ defines homomorphisms
+\[
+F_p\mathscr{D}\otimes F_q\mathscr{D}\To\SEnd(\mathscr{O})
+\]
+factorizing through $\gr_{p+q-1}(\mathscr{D})$ and 
+annihilating $F_{p-1}\mathscr{D}\otimes F_q\mathscr{D}$ 
+as well as $F_p\mathscr{D}\otimes F_{q-1}\mathscr{D}$. 
+Therefore they induces homomorphisms
+\[
+\gr_{p}(\mathscr{D})\otimes\gr_{q}(\mathscr{D})\To\gr_{p+q-1}(\mathscr{D}).
+\]
+In this way, we obtain a graded binary operation of degree $-1$
+\begin{equation}\label{eq:Poisson_Bracket}
+\{-,-\}\colon
+\gr_\bullet(\mathscr{D})\otimes\gr_\bullet(\mathscr{D})\To\gr_\bullet(\mathscr{D})
+\end{equation}
+satisfying
+\[
+\{\sigma(P),\sigma(Q)\}=\sigma([P,Q])
+\]
+for arbitrary differential operators $P$ and $Q$.
+Note that it has the following properties
+\begin{enumerate}[(a)]
+\item $\{-,-\}$ makes $\gr(\mathscr{D})$ a Lie algebra.
+\item For any sections $f,g,h$ of $\gr(\mathscr{D})$, 
+we have the \emph{Leibniz rule}:
+\[
+\{f,gh\}=\{f,g\}h+g\{f,h\}.
+\]
+\end{enumerate}
+In this way, we get a \emph{Coisson algebra} 
+(i.e. \emph{commutative Poisson algebra})
+structure on $\gr(\mathscr{D})$.
+\begin{Rem}
+A \emph{Poisson algebra} is an associative algebra $A$ 
+equipped with a binary bracket $\{-,-\}$ such that 
+\begin{enumerate}[(P1)]
+\item $\{-,-\}$ makes $A$ a Lie algebra.
+\item For any $f,g,h\in A$, 
+we have the \emph{Leibniz rule}:
+\[
+\{f,gh\}=\{f,g\}h+g\{f,h\}.
+\]
+\end{enumerate}
+A \emph{Coisson algebra} is a Poisson algebra 
+whose underlying associative algebra is commutative.
+\end{Rem}
+
+The Coisson structure can be obtained in another way: 
+the symplectic structure of the \emph{cotangent bundle} $T^{\ast}M$. 
+
+Like the \emph{tangent bundle} is the vector bundle associated to 
+the locally free $\mathscr{O}_M$-module $\Theta_M$, the cotangent bundle 
+is the vector bundle $\pi\colon T^{\ast}M\to M$ associated to 
+the locally free $\mathscr{O}_M$-module $\Omega_{M}^1$. 
+Let $(z^i)_{1\le i\le m}$ be a local coordinate system of $M$ on a chart $U$. 
+Since $(dz^i)_{1\le i\le m}$ is a basis of $\Omega_{M}^1$ on $U$, 
+we see that $T^{\ast}M$ has a local coordinate system 
+$(z^i;\xi^j)_{1\le i,j\le m}$ on chart $\pi^{-1}(U)$ such that: 
+any local section $\omega=\sum_{i=1}^{m}f_idz^i$ of the sheaf $\Omega_{M}^1$ on $U$ is corresponding to the following section of the projection $\pi$ on $U$:
+\[
+z=(z^1,z^2,\cdots,z^m)\longmapsto
+(z,\omega):=(z^1,z^2,\cdots,z^m;f_1,f_2,\cdots,f_m)
+\]
+written under this coordinate system.
+ 
+\begin{Rem}
+\small
+The \emph{cotangent bundle} can be also constructed as follows. 
+Consider the \emph{diagonal map} $\Delta\colon M\to M\times M$, 
+which sends each point $x$ to its double $(x,x)$ and 
+is obtained from the universal property of Cartesian product. 
+Then, on $M$, we have a canonical surjective homomorphism
+\[
+\Delta^{-1}(\mathscr{O}_{M\times M})\To\mathscr{O}_M.
+\]
+Denote its kernel by $\Iii$. 
+Then, for any $p$, we have the 
+\emph{$p$-th infinitesimal neighborhood of the diagonal} 
+$M_{\diag}^{(p)}=(M,\Delta^{-1}(\mathscr{O}_{M\times M})/\Iii^{p+1})$ 
+with a closed immersion $\Delta^{(p)}\colon M_{\diag}^{(p)}\to M\times M$. 
+Let $\pr_1\colon M\times M\to M$ be the projection to the first factor.
+Then the composition
+\[
+M_{\diag}^{(p)}\markar{\Delta^{(p)}}M\times M\markar{\pr_1}M,
+\]
+provides a homomorphism 
+$\pr_1^\ast\colon\mathscr{O}_M\to\mathscr{O}_{M_{\diag}^{(p)}}$, 
+which is precisely $(\pr_1\circ\Delta^{(p)})^{\sharp}$.
+Then the \emph{sheaf of principal parts of order $p$} of $M$ 
+is the sheaf $\mathscr{P}_M^{(p)}:=\mathscr{O}_{M_{\diag}^{(p)}}$ 
+equipped with the $\mathscr{O}_M$-algebra structure given by $\pr_1^\ast$.
+\end{Rem}
+
+\subsection{$\mathscr{D}$-modules}
+
+Let $\Omega_M^1$ be the sheaf of holomorphic $1$-forms, 
+which is the dual $\mathscr{O}_M$-module of $\Theta_M$. 
+Then $\Omega_M^p=\bigwedge^p\Omega_M^1$ is the sheaf of holomorphic $p$-forms. 
+Note that $\Omega_M^0=\mathscr{O}_M$.
+Let $d\colon\Omega_M^p\to\Omega_M^{p+1}$ be the differential, 
+which can be locally defined as
+\[
+d(\sum_\lambda f_\lambda dz^\lambda)=\sum_\lambda df_\lambda\wedge dz^\lambda,
+\quad \forall f_\lambda\in\mathscr{O}_M, \lambda\in[1,m]^p
+\]
+and (globally) characterized by the following property:
+\[
+d(\omega\wedge\upsilon)=d\omega\wedge\upsilon+(-1)^q\omega\wedge d\upsilon,
+\]
+where $\omega\in\Omega_M^q$. 
+Note that then we have an exact sequence
+\[
+0\To\CC_M
+\]
+
+$\upomega$
+
+
+\begin{bibdiv}
+\begin{biblist}
+\bibselect{refdatabase}
+\end{biblist}
+\end{bibdiv}
+\end{document}
