@@ -1,0 +1,87 @@
+% !Mode:: "TeX:UTF-8"
+% @ Commone Head File
+\input{ArticleHead}
+% @ Theorem Environments
+\input{Theorem/margin-section-eq}	
+\input{ArticleHead-after}
+\input{Theorem/theoremlists}
+%
+% PDF File Information
+%
+\hypersetup{
+	pdftitle={D-modules Notes - Xu Gao},%标题
+	pdfauthor={Xu Gao},            %作者
+	%             pdfproducer={XeLaTeX},        %制作工具
+	bookmarksopen=true,         %书签自动打开
+	colorlinks=true,                       %是否采用彩色超链接
+	citecolor=red,                       %文献引用的颜色
+	filecolor=black,                       %文件链接颜色
+	linkcolor=black,                       %内部链接颜色
+	urlcolor=darkgray                         %网页与电邮链接颜色
+}
+
+%
+% TITLE
+%
+\title{Note on\\ \texttt{\Huge $\mathscr{D}$-modules}\\ (on complex manifolds)}
+\author{Xu Gao}
+\date{
+	Last update: \today
+}
+
+\begin{document}
+\maketitle
+\begin{abstract}
+This is my reading and thought notes on $\mathscr{D}$-modules 
+in the context of complex geometry. 
+It contains standard materials of definitions and conclusions in this field 
+at beginner level. 
+In addition, it also contains funny, cumbersome and maybe highly non-necessary 
+materials (in small fonts) basically around my confusions and brainstorms.
+\end{abstract}
+\tableofcontents
+\include{ComplexDmod/Conventions}
+
+\section{Basic constructions}
+One can skip 
+hard section (marked by \P) and
+remarks in small font   
+during first read.
+
+\input{ComplexDmod/Basic/tshdo}
+%\Cref{lem:filtration_of_D}
+%\Cref{eq:sym(theta)_to_D}
+
+\input{ComplexDmod/Basic/tsdo}
+%\Cref{eq:sym(Der)_to_Diff}
+%\Cref{lem:Theta=Der}
+%\Cref{thm:D=Diff}
+
+\input{ComplexDmod/Basic/dmfc}
+%\Cref{eq:deRham}
+%\Cref{lem:Theta_module-D_module}
+%\Cref{prop:Induced_connections}
+%\Cref{eq:dRham-complex}
+%\Cref{eq:action-from-connection}
+%\Cref{eq:universal-connection}
+%\Cref{eq:Dmod-connection}
+
+\input{ComplexDmod/Basic/bodm}
+
+\input{ComplexDmod/Basic/lrin}
+
+\input{ComplexDmod/Basic/tspp}
+
+\input{ComplexDmod/Basic/sscb}
+
+
+\input{ComplexDmod/Basic/draft}
+
+
+
+\begin{bibdiv}
+\begin{biblist}
+\bibselect{refdatabase}
+\end{biblist}
+\end{bibdiv}
+\end{document}
